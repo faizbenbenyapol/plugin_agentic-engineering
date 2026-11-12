@@ -1,0 +1,14 @@
+{
+  "name": "agentic-engineering",
+  "description": "Workflow งานโค้ดแบบมีหลักฐาน พร้อมโหมดสอนระหว่างพัฒนา",
+  "owner": {
+    "name": "faizbenbenyapol"
+  },
+  "plugins": [
+    {
+      "name": "agentic-engineering",
+      "source": "./",
+      "description": "Workflow งานโค้ดแบบมีหลักฐาน ประหยัดโควตา Pro และสอนผู้พัฒนาไปพร้อมงาน"
+    }
+  ]
+}
