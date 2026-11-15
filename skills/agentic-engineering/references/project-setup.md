@@ -28,4 +28,4 @@
 | ... | เอกสารเท่านั้น (ต้องใช้วิจารณญาณ) |
 ```
 
-และ `docs/specs/`, `docs/decisions/`, `docs/progress.md`, `.claude/skills/verify-<app>/` ตามที่งานต้องใช้ ไม่ต้องสร้างทั้งหมดตั้งแต่วันแรก
+และ `docs/requirements/`, `docs/handoff/`, `docs/decisions/`, `docs/progress.md`, `.claude/skills/verify-<app>/` ตามที่งานต้องใช้ ไม่ต้องสร้างทั้งหมดตั้งแต่วันแรก

@@ -1,7 +1,7 @@
 {
   "name": "agentic-engineering",
-  "version": "0.9.0",
-  "description": "Workflow งานโค้ดแบบมีหลักฐาน ดัดแปลงจาก pstack และปรับให้ประหยัดโควตา Claude Pro: งานเล็กไม่โหลดสกิล เซสชันหลักเขียนเองเป็นค่าเริ่มต้น ใช้ agent เมื่อคุ้ม มี playbook 12 แบบ โหมดสอนระหว่างพัฒนาพร้อมอธิบายสิ่งที่ทำ และแนวทางออกแบบ UI ที่ไม่ดูเหมือนงาน AI",
+  "version": "0.10.0",
+  "description": "Workflow งานโค้ดแบบมีหลักฐานตามวงจร SDLC ดัดแปลงจาก pstack และปรับให้ประหยัดโควตา Claude Pro: สื่อสารภาษาไทย เก็บรีไควร์เมนต์ละเอียดลง repo และเทียบทุก slice ขอเปลี่ยนต้องถามก่อน จบด้วยคู่มือส่งมอบ .md แนะนำโมเดลต่อเฟส มี playbook 13 แบบ โหมดสอนระหว่างพัฒนา และแนวทาง UX/UI ที่ไม่ดูเหมือนงาน AI",
   "author": {
     "name": "faizbenbenyapol"
   },
@@ -12,6 +12,10 @@
     "pstack",
     "code-review",
     "subagents",
-    "learning"
+    "learning",
+    "requirements",
+    "handoff",
+    "sdlc",
+    "ux"
   ]
 }
