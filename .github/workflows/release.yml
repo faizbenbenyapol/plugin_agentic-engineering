@@ -1,0 +1,48 @@
+# ออก GitHub Release ทุกครั้งที่ main มีเลขเวอร์ชันใหม่ใน .claude-plugin/plugin.json
+# สร้าง tag vX.Y.Z, ใช้โน้ตจาก README หัวข้อ "### X.Y.Z" และแนบไฟล์ .plugin ไว้ติดตั้งในแอป Claude
+# เลขที่มี tag แล้วจะข้าม จึงรันซ้ำได้ไม่ออก release ซ้ำ
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: อ่านเวอร์ชันและเช็กว่าออกไปแล้วหรือยัง
+        id: v
+        run: |
+          version=$(jq -r .version .claude-plugin/plugin.json)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" >/dev/null; then
+            echo "มี tag v$version แล้ว ข้าม"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: สร้างโน้ตและไฟล์ .plugin
+        if: steps.v.outputs.skip != 'true'
+        run: |
+          scripts/release-notes.sh "${{ steps.v.outputs.version }}" > notes.md
+          scripts/build-plugin.sh
+      - name: ออก release
+        if: steps.v.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="${{ steps.v.outputs.version }}"
+          gh release create "v$v" "dist/agentic-engineering-v$v.plugin" \
+            --target "$GITHUB_SHA" \
+            --title "v$v" \
+            --notes-file notes.md

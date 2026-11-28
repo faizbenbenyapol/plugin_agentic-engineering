@@ -42,4 +42,5 @@ Co-Authored-By: ...
 - trailer ท้าย commit (`Co-Authored-By:`, `Claude-Session:`, `Fixes #12`) เป็นภาษาอังกฤษตามรูปแบบเดิม ห้ามแปล
 - commit เล็กมาก (แก้ typo, import) body ภาษาไทยบรรทัดเดียวพอ
 - ส่ง message หลายบรรทัดด้วย heredoc หรือ `git commit -F <ไฟล์>` ไม่ใช้ `-m` ซ้อนหลายอันจนบรรทัดว่างหาย
-- **ข้อยกเว้น:** `CLAUDE.md`, `CONTRIBUTING.md` หรือ commitlint ของ repo กำหนดภาษาไว้ชัด ให้ทำตาม repo แล้วบอกผู้ใช้หนึ่งบรรทัด ไม่เดาจากประวัติ commit เก่าว่าเป็นภาษาอังกฤษ
+- **ข้อยกเว้น:** `CLAUDE.md`, `CONTRIBUTING.md` หรือ commitlint ของ repo กำหนดภาษาไว้ชัด ให้ทำตาม repo แล้วบอกผู้ใช้หนึ่งบรรทัด repo ส่วนตัวไม่เดาจากประวัติ commit เก่าว่าเป็นภาษาอังกฤษ
+- **repo ของทีม:** ใช้รูปแบบและภาษาตาม `docs/team-rules.md` (`playbooks/team-work.md`) ถ้ายังไม่มีกติกาเขียนไว้ ให้ตามประวัติ commit ของทีม (`git log --oneline -20`) เพราะคนอื่นต้องอ่าน log เดียวกัน แล้วใส่เป็นคำถามสำหรับ mentor

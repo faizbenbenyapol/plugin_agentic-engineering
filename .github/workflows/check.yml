@@ -1,0 +1,21 @@
+# ตรวจกฎการออกเวอร์ชันในทุก PR ที่เข้า main
+# ไม่ผ่าน = ลืมขยับ version, ลืมเขียนโน้ตใน README, เลขซ้ำ tag เดิม หรือ SKILL.md ไม่ตรง
+name: check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  release-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: กฎการออกเวอร์ชัน
+        run: scripts/check-release.sh "origin/${{ github.base_ref }}"
+      - name: ทดลอง build ไฟล์ .plugin
+        run: |
+          out=$(scripts/build-plugin.sh)
+          unzip -l "$out" | tail -1
