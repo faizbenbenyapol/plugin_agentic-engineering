@@ -20,6 +20,8 @@ repo นี้คือปลั๊กอิน agentic-engineering สำหร
 
 แล้ว merge เข้า `main` workflow `release` จะสร้าง tag `vX.Y.Z` ออก GitHub Release และแนบไฟล์ `.plugin` เอง ห้ามสร้าง tag หรือ release ของเวอร์ชันใหม่ด้วยมือ ให้ workflow ทำ จะได้มีแหล่งเดียว
 
+เวอร์ชันเก่าที่ยังไม่มี release ใช้ workflow `backfill` (กด Run workflow ในแท็บ Actions ใส่ `เวอร์ชัน=commit`) มันเช็กว่าเลขใน commit ตรงกันก่อน ข้ามเลขที่มี tag แล้ว และไม่ตั้ง release ย้อนหลังเป็น latest
+
 ## สิ่งที่บังคับใช้
 
 | กฎ | บังคับด้วย |

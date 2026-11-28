@@ -1,0 +1,44 @@
+# ออก release ย้อนหลังให้เวอร์ชันเก่าที่ยังไม่มี tag (กดรันเองจากแท็บ Actions)
+# แต่ละรายการคือ เวอร์ชัน=commit และใส่ +เวอร์ชัน ต่อท้ายเพื่อรวมโน้ตของเวอร์ชันที่ไม่มี commit แยก
+# เวอร์ชันที่มี tag แล้วจะข้าม จึงรันซ้ำได้ release ย้อนหลังไม่ถูกตั้งเป็น latest
+name: backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      versions:
+        description: "รายการ เวอร์ชัน=commit[+เวอร์ชันที่รวม] คั่นด้วยช่องว่าง"
+        default: "0.7.0=5e84c28 0.8.0=a34c629 0.9.0=4ddd11c 0.10.0=67ef34e 0.11.0=fd37b51 0.14.0=c9969d4+0.13.0+0.12.0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: ออก release ย้อนหลัง
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSIONS: ${{ inputs.versions }}
+        run: |
+          for item in $VERSIONS; do
+            v=${item%%=*}; rest=${item#*=}; commit=${rest%%+*}
+            extras=""; [ "$rest" != "$commit" ] && extras=$(echo "${rest#*+}" | tr '+' ' ')
+            if git ls-remote --exit-code --tags origin "refs/tags/v$v" >/dev/null; then
+              echo "มี tag v$v แล้ว ข้าม"; continue
+            fi
+            scripts/backfill-prepare.sh "$v" "$commit" $extras
+            gh release create "v$v" "dist/agentic-engineering-v$v.plugin" \
+              --target "$(git rev-parse "$commit")" \
+              --title "v$v" \
+              --notes-file "dist/notes-$v.md" \
+              --latest=false
+          done

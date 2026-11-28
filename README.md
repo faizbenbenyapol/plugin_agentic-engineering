@@ -251,6 +251,8 @@ CLAUDE.md                กฎของ repo สำหรับคนและ 
 2. workflow `check` ตรวจให้ ถ้าลืมข้อไหน PR จะแดงพร้อมบอกวิธีแก้ (รันเองก่อนได้: `scripts/check-release.sh origin/main`)
 3. merge เข้า `main` แล้ว workflow `release` สร้าง tag `vX.Y.Z` ออก release ใช้ข้อความในประวัติการเปลี่ยนเป็นโน้ต และแนบไฟล์ `.plugin`
 
+เวอร์ชันเก่าที่ยังไม่มี release ให้รัน workflow `backfill` จากแท็บ Actions
+
 เรื่องอื่นของคนดูแล: แก้ `agents/*.md` แล้วรัน `scripts/sync-agents.sh` · ตรวจโครงสร้างด้วย `claude plugin validate .` · ถ้าตั้ง env `CLAUDE_CODE_EFFORT_LEVEL` ไว้ จะทับ effort ของ agent
 
 ## ประวัติการเปลี่ยน
